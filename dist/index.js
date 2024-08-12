@@ -35803,10 +35803,11 @@ async function run() {
           }
         });
       } else if (way === 'body') {
-        let arr = body.split('\n');
-        arr.forEach(it => {
-          if (it.startsWith('#')) {
-            issues.push(it.replace('#', '').replace('\n', ''));
+        let lines = body.split('\n');
+        lines.forEach(line => {
+          const matches = line.matchAll(/#(\d+)/g);
+          for (let match of matches) {
+            issues.push(match[1]);
           }
         });
       } else if (way === 'commit') {
